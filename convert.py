@@ -1,18 +1,26 @@
+
+# convertir .doc a pdf:
+# /Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to pdf --outdir /Users/dani/Projectes/wordsTOpdf/pdf  /Users/dani/Projectes/wordsTOpdf/docIn/*.doc
+
+from PyPDF2 import PdfMerger
 import os
-import subprocess
+from datetime import datetime
 
-def convert_to_pdf(source_folder, output_folder):
-    for subdir, dirs, files in os.walk(source_folder):
-        for file in files:
-            filepath = os.path.join(subdir, file)
-            if filepath.endswith(".doc") or filepath.endswith(".docx"):
-                output_filepath = os.path.join(output_folder, os.path.splitext(file)[0] + ".pdf")
-                command = f"/Applications/OpenOffice.app/Contents/MacOS/soffice --headless --convert-to pdf --outdir {output_folder} {filepath}"
-                subprocess.run(command, shell=True)
-                print(f"Converted {file} to PDF")
+# Carpeta amb els PDFs generats
+current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+pdf_folder = "/Users/dani/Projectes/wordsTOpdf/pdf"
+output_pdf = f"/Users/dani/Projectes/wordsTOpdf/docOut/combined_{current_time}.pdf"
 
-# Configura tus propias rutas de carpeta aquí
-source_folder = 'docIn'  # Carpeta que contiene los archivos de Word
-output_folder = 'docOut'  # Carpeta donde guardar los archivos PDF
+# Crear un objecte PdfMerger
+merger = PdfMerger()
 
-convert_to_pdf(source_folder, output_folder)
+# Afegir cada PDF al fitxer combinat
+for pdf_file in sorted(os.listdir(pdf_folder)):
+    if pdf_file.endswith(".pdf"):
+        merger.append(os.path.join(pdf_folder, pdf_file))
+
+# Escriure el PDF combinat
+merger.write(output_pdf)
+merger.close()
+
+print(f"El PDF combinat s'ha desat a: {output_pdf}")
