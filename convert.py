@@ -1,6 +1,6 @@
 
 # convertir .doc a pdf:
-# /Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to pdf --outdir /Users/dani/Projectes/wordsTOpdf/pdf  /Users/dani/Projectes/wordsTOpdf/docIn/*.doc
+# /Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to pdf --outdir /Users/dani/Projectes/wordsTOpdf/pdf  /Users/dani/Projectes/wordsTOpdf/docx/*.doc
 
 from PyPDF2 import PdfMerger
 import os
@@ -9,7 +9,7 @@ from datetime import datetime
 # Carpeta amb els PDFs generats
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 pdf_folder = "/Users/dani/Projectes/wordsTOpdf/pdf"
-output_pdf = f"/Users/dani/Projectes/wordsTOpdf/docOut/combined_{current_time}.pdf"
+output_pdf = f"/Users/dani/Projectes/wordsTOpdf/pdfConvinat/combined_{current_time}.pdf"
 
 # Crear un objecte PdfMerger
 merger = PdfMerger()
